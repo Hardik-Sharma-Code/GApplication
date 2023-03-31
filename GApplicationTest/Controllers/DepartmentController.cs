@@ -1,4 +1,7 @@
-﻿using GApplication.DATA.Model;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
+using GApplication.DATA.Model;
 using GApplication.DATA.ViewModel;
 using GApplication.Service.Repository.Interface;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +14,12 @@ namespace GApplicationTest.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentServices department;
+        private readonly IValidator<Department> _validator;
 
-        public DepartmentController(IDepartmentServices department)
+        public DepartmentController(IDepartmentServices department, IValidator<Department> validator)
         {
             this.department = department;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -29,15 +34,19 @@ namespace GApplicationTest.Controllers
         public async Task<IActionResult> GetDepartmentById(int Id)
         {
             var result = await department.GetDepartmentById(Id);
+                return Ok(validation);
+            }
             return Ok(result);
         }
         [HttpPost]
         [Route("AddDeparment")]
         public async Task<IActionResult> AddDeparment(Department model)
         {
-            if (model == null)
+            ValidationResult validation = await _validator.ValidateAsync(model);
+            if (!validation.IsValid)
             {
-                return BadRequest(Ok());
+                validation.AddToModelState(this.ModelState);
+                return Ok(validation);
             }
             var result = await department.AddOrUpdate(model);
             return Ok("Data Save");

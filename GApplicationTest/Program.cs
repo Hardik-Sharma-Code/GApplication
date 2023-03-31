@@ -28,7 +28,9 @@ builder.Services.AddTransient<IEmployeesServices, EmployeesServices>();
 builder.Services.AddTransient<IDepartmentServices, DepartmentServices>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddValidatorsFromAssemblyContaining<EmployeesValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<DepartmentValidator>();
 builder.Services.AddScoped<IValidator<EmployeesVM>, EmployeesValidator>();
+builder.Services.AddScoped<IValidator<Department>, DepartmentValidator>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
