@@ -34,8 +34,6 @@ namespace GApplicationTest.Controllers
         public async Task<IActionResult> GetDepartmentById(int Id)
         {
             var result = await department.GetDepartmentById(Id);
-                return Ok(validation);
-            }
             return Ok(result);
         }
         [HttpPost]
