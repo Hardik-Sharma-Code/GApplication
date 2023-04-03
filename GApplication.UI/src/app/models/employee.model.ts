@@ -3,5 +3,5 @@ export interface Employee{
          firstName   :string;
          lastName    :string;
          occupation  :string;
-         department  :string;
+         eDepartment  :string;
 }

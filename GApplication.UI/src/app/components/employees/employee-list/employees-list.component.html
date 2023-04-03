@@ -1,7 +1,10 @@
 <div class="container my-5">
 <h1>Employees</h1>
-<button type="button" class="btn btn-primary" routerLink="/employees/add">Add Employee</button>
 
+<input type="text" class="float-end m-1" (keyup)="applyFilter($event)">
+<label class="float-end p-2">Filter</label>
+
+<button type="button" class="btn btn-primary" routerLink="/employees/add">Add Employee</button>
 <table class="table" *ngIf="employees && employees.length > 0">
 <thead>
     <tr>
@@ -15,12 +18,12 @@
     </tr>
 </thead>
 <tbody>
-    <tr *ngFor="let employee of employees">
+    <tr *ngFor="let employee of filteredArray">
         <td>{{employee.id}}</td>
         <td>{{employee.firstName}}</td>
         <td>{{employee.lastName}}</td>
         <td>{{employee.occupation}}</td>
-        <td>{{employee.department}}</td>
+        <td>{{employee.eDepartment}}</td>
         <td><a [routerLink]="['/employees','edit',employee.id]">View</a></td>
         <td><a [routerLink]="['/employees','delete',employee.id]" (click)="deleteEmployees(employee.id)"><span class="bi bi-trash red-color" ></span></a></td>
     </tr>

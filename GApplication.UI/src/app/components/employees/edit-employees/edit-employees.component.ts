@@ -15,7 +15,7 @@ export class EditEmployeesComponent implements OnInit {
     firstName: '',
     lastName: '',
     occupation: '',
-    department: ''
+    eDepartment: ''
   }
   constructor(private route:ActivatedRoute,private employeeService: EmployeesService, private router:Router ) {
     

@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -16,8 +17,10 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
+    // "target": "ES2022",
+    // "module": "ES2022",
+    "target": "es6",
+    "module": "commonjs",
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
