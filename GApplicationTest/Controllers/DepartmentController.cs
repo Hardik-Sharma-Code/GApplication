@@ -30,15 +30,15 @@ namespace GApplicationTest.Controllers
             return Ok(result);
         }
         [HttpGet]
-        [Route("DepartmentById")]
-        public async Task<IActionResult> GetDepartmentById(int Id)
+        [Route("DepartmentById/{Id}")]
+        public async Task<IActionResult> GetDepartmentById([FromRoute] int Id)
         {
             var result = await department.GetDepartmentById(Id);
             return Ok(result);
         }
         [HttpPost]
-        [Route("AddDeparment")]
-        public async Task<IActionResult> AddDeparment(Department model)
+        [Route("addDepartment")]
+        public async Task<IActionResult> AddDepartment([FromBody] Department model)
         {
             ValidationResult validation = await _validator.ValidateAsync(model);
             if (!validation.IsValid)
@@ -47,18 +47,20 @@ namespace GApplicationTest.Controllers
                 return Ok(validation);
             }
             var result = await department.AddOrUpdate(model);
-            return Ok("Data Save");
+            return Ok(result);
         }
         [HttpPut]
         [Route("UpdateDeparment")]
-        public async Task<IActionResult> UpdateDeparment(Department model)
+        public async Task<IActionResult> UpdateDeparment([FromBody] Department model)
         {
-            if (model == null)
+            ValidationResult validation = await _validator.ValidateAsync(model);
+            if (!validation.IsValid)
             {
-                return BadRequest(Ok());
+                validation.AddToModelState(this.ModelState);
+                return Ok(validation);
             }
             var result = await department.AddOrUpdate(model);
-            return Ok("Data Updated");
+            return Ok(result);
         }
     }
 }

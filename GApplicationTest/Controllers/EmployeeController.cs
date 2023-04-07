@@ -31,15 +31,15 @@ namespace GApplicationTest.Controllers
             return Ok(result);
         }
         [HttpGet]
-        [Route("EmployeeById")]
-        public async Task<IActionResult> GetEmployeesById(int Id)
+        [Route("EmployeeById/{Id}")]
+        public async Task<IActionResult> GetEmployeesById([FromRoute] int Id)
         {
             var result = await employees.GetEmployeesById(Id);
             return Ok(result);
         }
         [HttpPost]
         [Route("AddEmployee")]
-        public async Task<IActionResult> AddEmployee(EmployeesVM model)
+        public async Task<IActionResult> AddEmployee([FromBody] EmployeesVM model)
         {   
             ValidationResult validation = await _validator.ValidateAsync(model);
             if (!validation.IsValid)
@@ -48,26 +48,28 @@ namespace GApplicationTest.Controllers
                 return Ok(validation);
             }
             var result =await employees.AddOrUpdate(model);
-            return Ok("Data Save");
+                return Ok(result);
         }
         [HttpPut]
         [Route("updateEmployee")]
-        public async Task<IActionResult> updateEmployee(EmployeesVM model)
+        public async Task<IActionResult> updateEmployee([FromBody] EmployeesVM model)
         {
-            if (model == null)
+            ValidationResult validation = await _validator.ValidateAsync(model);
+            if (!validation.IsValid)
             {
-                return BadRequest(Ok()); 
-
+                validation.AddToModelState(this.ModelState);
+                return Ok(validation);
             }
             var result = await employees.AddOrUpdate(model);
-            return Ok("Data Updated");
+            return Ok(result);
         }
 
         [HttpDelete]
-        [Route("RemoveEmployee")]
-        public async Task<IActionResult> Delete(EmployeesVM model)
+        [Route("deleteEmployee/{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] int Id)
         {
-            var result = await employees.Delete(model);
+            var getEmployee = await employees.GetEmployeesById(Id);
+            var result = await employees.Delete(getEmployee);
             return Ok(result);
         }
     }

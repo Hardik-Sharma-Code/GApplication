@@ -10,8 +10,5 @@ namespace GApplication.DATA.BaseRepositry
 {
     public interface IEmployeesRepository : IBaseRepository<Employees>
     {
-       //Task<EmployeesVM> GetEmployeesById(int id);
-       //Task<IEnumerable<EmployeesVM>> GetEmployees();
-       // Task<Employees> AddOrUpdate(EmployeesVM model);
     }
 }

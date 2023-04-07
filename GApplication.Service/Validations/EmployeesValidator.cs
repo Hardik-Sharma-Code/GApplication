@@ -16,7 +16,7 @@ namespace GApplication.Service.Validations
             RuleFor(e => e.FirstName).NotNull().NotEmpty().WithMessage("First Name is required");
             RuleFor(e => e.LastName).NotNull().NotEmpty().WithMessage("Last Name is required");
             RuleFor(e => e.Occupation).NotNull().NotEmpty().WithMessage("Occupation is required");
-            RuleFor(e => e.Department).NotNull().NotEmpty().WithMessage("Department is required");
+            RuleFor(e => e.EDepartment).NotNull().NotEmpty().WithMessage("Department is required");
         }
     }
 }

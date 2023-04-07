@@ -15,6 +15,10 @@ namespace GApplication.DATA.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Occupation { get; set; }
+        public string Gender { get; set; }
+        public string EmployeeeType { get; set; }
+
+
         [ForeignKey("Department")]
         public int DepartmentID { get; set; }
 
