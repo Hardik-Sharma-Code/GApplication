@@ -1,22 +1,22 @@
 <div class="container my-5">
     <h1>Department</h1>
     <button type="button" class="btn btn-primary" routerLink="/department/add">Add Department</button>
-    
+
     <table class="table" *ngIf="departments && departments.length > 0">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Department Name</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let department of departments">
-            <td>{{department.departmentID}}</td>
-            <td>{{department.departmentName}}</td>
-            <td><a [routerLink]="['/department','edit',department.departmentID]">View</a></td>
-        </tr>
-    </tbody>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Department Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let department of departments">
+                <td>{{department.departmentID}}</td>
+                <td>{{department.departmentName}}</td>
+                <td><a [routerLink]="['/department','edit',department.departmentID]">View</a></td>
+            </tr>
+        </tbody>
     </table>
     <p *ngIf="!departments || departments.length <= 0"> No Department Found</p>
-    </div>
+</div>

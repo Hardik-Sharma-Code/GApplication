@@ -1,30 +1,92 @@
 <div class="container my-5">
-    <h1 class="mb-3"> Update Employee</h1>
-    <div class="row">
-        <div class="col-6">
-            <form #form="ngForm" (ngSubmit)="updateEmployee()">
-                <div class="mb-3" style="display: none;">
-                    <label for="Id" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="id" name="id" [(ngModel)] = "employeesDetails.id">
-                  </div>
-                <div class="mb-3">
-                  <label for="firstName" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)] = "employeesDetails.firstName">
-                </div>
-                <div class="mb-3">
-                    <label for="lastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)] = "employeesDetails.lastName">
-                  </div>
-                  <div class="mb-3">
-                    <label for="occupation" class="form-label">Occupation</label>
-                    <input type="text" class="form-control" id="occupation" name="occupation" [(ngModel)] = "employeesDetails.occupation">
-                  </div>
-                  <div class="mb-3">
-                    <label for="Edepartment" class="form-label">Department</label>
-                    <input type="text" class="form-control" id="Edepartment" name="Edepartment" [(ngModel)] = "employeesDetails.eDepartment">
-                  </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-              </form>
+  <h1 class="mb-3"> Update Employee</h1>
+  <div class="row">
+    <div class="col-6">
+      <form #form="ngForm" (ngSubmit)="updateEmployee()">
+        <div class="mb-2" style="display: none;">
+          <label for="Id" class="form-label">ID</label>
+          <input type="number" class="form-control" id="id" name="id" [(ngModel)]="employeesDetails.id">
         </div>
+        <div class="mb-2">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" name="firstName"
+            [(ngModel)]="employeesDetails.firstName">
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier=='firstName'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="lastname" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="employeesDetails.lastName">
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier=='lastName'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="Gender" class="form-label m-2">Gender</label> <br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male"
+              [(ngModel)]="employeesDetails.gender">
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female"
+              [(ngModel)]="employeesDetails.gender">
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+          </div>
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier =='gender'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="occupation" class="form-label">Occupation</label>
+          <input type="text" class="form-control" id="occupation" name="occupation"
+            [(ngModel)]="employeesDetails.occupation">
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier=='occupation'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="EmployeeType" class="form-label m-2">Employee Type</label> <br>
+
+          <div class="form-group form-check form-check-inline" *ngFor="let type of employeesDetails.employeeTypeLists">
+            <input class="form-check-input" [value]="type.name" type="checkbox" [checked]="type.isSelected"
+              name="employeeType" id="type" (change)="onCheckboxChange($event)">
+            <label class="form-check-label" for="type">{{type.name}}</label>
+          </div>
+
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier=='employeeType'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="department">Department:</label>
+          <select #mySelect class="form-control" id="eDepartment" name="eDepartment"
+            [(ngModel)]="employeesDetails.eDepartment">
+            <option disabled>Select Department</option>
+            <option value="undefined">Choose department</option>
+            <option *ngFor="let department of departments" (ngValue)="department.departmentName">
+              {{department.departmentName}}</option>
+          </select>
+
+          <div *ngFor="let r of allErrors" class="m-2">
+            <div *ngIf="r.Identifier =='eDepartment'">
+              <div class="alert alert-danger">{{r.Message}}</div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
     </div>
-    </div>
+  </div>
+</div>

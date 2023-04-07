@@ -12,23 +12,23 @@ export class DepartmentsService {
   baseApiUrl: string = enviroment.baseApiURL;
   constructor(private http: HttpClient) { }
 
-  getAllDepartment():Observable<Department[]>{
+  getAllDepartment(): Observable<Department[]> {
     {
       return this.http.get<Department[]>(this.baseApiUrl + 'api/Department/allDepartment');
     }
   }
 
-  addDepartment(addDepartmentRequest:Department):Observable<Department>{
+  addDepartment(addDepartmentRequest: Department): Observable<Department> {
     addDepartmentRequest.departmentID = 0;
-    return this.http.post<Department>(this.baseApiUrl + 'api/Department/addDepartment',addDepartmentRequest)
+    return this.http.post<Department>(this.baseApiUrl + 'api/Department/addDepartment', addDepartmentRequest)
   }
 
-  getDepartmentByID(id:string):Observable<Department>{
+  getDepartmentByID(id: string): Observable<Department> {
     return this.http.get<Department>(this.baseApiUrl + 'api/Department/DepartmentById/' + id)
   }
 
-  updateDepartment(updateDepartment:Department):Observable<Department>{
-    return this.http.put<Department>(this.baseApiUrl + 'api/Department/UpdateDeparment',updateDepartment)
+  updateDepartment(updateDepartment: Department): Observable<Department> {
+    return this.http.put<Department>(this.baseApiUrl + 'api/Department/UpdateDeparment', updateDepartment)
   }
 
 }

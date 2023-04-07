@@ -1,4 +1,4 @@
-export interface Department{
+export interface Department {
     departmentID: number;
-    departmentName   :string;
+    departmentName: string;
 }

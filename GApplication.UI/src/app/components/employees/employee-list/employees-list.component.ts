@@ -12,54 +12,54 @@ import { EmployeesService } from 'src/app/services/employees.service';
 export class EmployeeListComponent implements OnInit {
 
   employees: Employee[] = [];
-  filteredArray: any;
-  constructor(private employeesServices:EmployeesService, private router:Router) {
-      
+  filteredEmployeeList: any;
+  constructor(private employeesServices: EmployeesService, private router: Router) {
+
   }
   ngOnInit(): void {
-    this.filteredArray = [];
+    this.filteredEmployeeList = [];
     this.employeesServices.getAllEmployees().subscribe({
       next: (employees) => {
         this.employees = employees;
-        this.filteredArray = employees;
+        this.filteredEmployeeList = employees;
       },
-      error:(response) => console.log(response)
+      error: (response) => console.log(response)
     });
 
-  
+
   }
 
   applyFilter(event: any) {
 
-      if (!this.employees.length) {
-        this.filteredArray = [];
-        return;
-      }
-  
-      if (!event.target.value) {      
-        this.filteredArray = [...this.employees]; 
-        return;
-      }
-  
-      const users = [...this.employees]; 
-      const properties = Object.keys(users[0]); 
-  
-      this.filteredArray =  users.filter((user) => {
-        return properties.find((property) => {
-          const valueString = user.firstName.toString().toLowerCase();
-          const lastName = user.lastName.toString().toLowerCase();
-          return valueString.includes(event.target.value.toLowerCase()) || lastName.includes(event.target.value.toLowerCase());
-        })
-        ? user
+    if (!this.employees.length) {
+      this.filteredEmployeeList = [];
+      return;
+    }
+
+    if (!event.target.value) {
+      this.filteredEmployeeList = [...this.employees];
+      return;
+    }
+
+    const empDetails = [...this.employees];
+    const properties = Object.keys(empDetails[0]);
+
+    this.filteredEmployeeList = empDetails.filter((empDetails) => {
+      return properties.find((property) => {
+        const valueString = empDetails.firstName.toString().toLowerCase();
+        const lastName = empDetails.lastName.toString().toLowerCase();
+        return valueString.includes(event.target.value.toLowerCase()) || lastName.includes(event.target.value.toLowerCase());
+      })
+        ? empDetails
         : null;
-      });
+    });
   }
 
 
-  deleteEmployees(id:number){
+  deleteEmployees(id: number) {
     this.employeesServices.deleteEmployee(id).subscribe({
       next: (response) =>
-      this.ngOnInit()
+        this.ngOnInit()
     })
   }
 }

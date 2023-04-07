@@ -12,7 +12,7 @@ export class DepartmentListComponent implements OnInit {
   departments: Department[] = [];
 
   constructor(private departmentServices: DepartmentsService) {
-      
+
   }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class DepartmentListComponent implements OnInit {
         this.departments = department;
         console.log(department)
       },
-      error:(response) => console.log(response)
+      error: (response) => console.log(response)
     })
   }
 }
